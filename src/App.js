@@ -1,24 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
+import Forecast from './components/Forecast/Forecast';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div style={{ minWidth: '200%;' }}>
+        <h1>Weather App made in React</h1>
+
+        <Forecast />
+      </div>
+      <footer>Page created by Benjamin Hardwick</footer>
     </div>
   );
 }
