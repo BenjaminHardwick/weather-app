@@ -49,7 +49,7 @@ const Forecast = () => {
         headers: {
           'x-rapidapi-host': 'community-open-weather-map.p.rapidapi.com',
           'x-rapidapi-key':
-            'd1b9b8f0b957bedfae0cafa6670e7933',
+            'd98be5dbacmsh1cb72dd9775de72p1855f5jsnb3eb99d12f7d',
           q: '',
         },
       }
