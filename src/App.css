@@ -3,13 +3,40 @@
   height: 100%;
   min-height: 100vh;
   display: flex;
-  font-size: calc(10px + 0.75vw);
-  background: rgb(119, 153, 173);
+  font-size: calc(15px + 0.75vw);
+  background: rgb(219, 144, 106);
+  background: -moz-linear-gradient(
+    0deg,
+    rgba(219, 144, 106, 1) 7%,
+    rgba(255, 137, 79, 1) 21%,
+    rgba(88, 198, 212, 1) 37%,
+    rgba(110, 229, 230, 1) 51%,
+    rgba(59, 238, 215, 1) 69%,
+    rgba(62, 230, 225, 1) 85%,
+    rgba(206, 251, 250, 1) 93%
+  );
+  background: -webkit-linear-gradient(
+    0deg,
+    rgba(219, 144, 106, 1) 7%,
+    rgba(255, 137, 79, 1) 21%,
+    rgba(88, 198, 212, 1) 37%,
+    rgba(110, 229, 230, 1) 51%,
+    rgba(59, 238, 215, 1) 69%,
+    rgba(62, 230, 225, 1) 85%,
+    rgba(206, 251, 250, 1) 93%
+  );
   background: linear-gradient(
     0deg,
-    rgba(119, 153, 173, 1) 14%,
-    rgba(20, 44, 54, 1) 57%
+    rgba(219, 144, 106, 1) 7%,
+    rgba(255, 137, 79, 1) 21%,
+    rgba(88, 198, 212, 1) 37%,
+    rgba(110, 229, 230, 1) 51%,
+    rgba(59, 238, 215, 1) 69%,
+    rgba(62, 230, 225, 1) 85%,
+    rgba(206, 251, 250, 1) 93%
   );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#db906a",endColorstr="#cefbfa",GradientType=1);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#db906a",endColorstr="#cefbfa",GradientType=1);
   flex-direction: column;
   align-items: center;
   justify-content: center;

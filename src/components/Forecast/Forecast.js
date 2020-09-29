@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import image from './images/weatheroptions.png';
 
-import cityImage from './images/city.jpg';
 import Conditions from '../Conditions/Conditions';
 import { Button, TextField, Checkbox, Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,7 +11,7 @@ const useStyles = makeStyles(theme => ({
     paddingBlock: '26ch',
   },
   paper: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(),
     textAlign: 'center',
     color: theme.palette.text.secondary,
     width: '50ch',
@@ -22,11 +21,27 @@ const useStyles = makeStyles(theme => ({
 const Forecast = () => {
   let [responseObj, setResponseObj] = useState({});
   let [city, setCity] = useState('');
-  let [unit, setUnit] = useState('imperial');
-  const uriEncodedCity = encodeURIComponent(city);
+  let [unit, setUnit] = useState('metric');
+  let [error, setError] = useState(false);
+  let [loading, setLoading] = useState(false);
+
   const classes = useStyles();
+
   function getForecast(e) {
     e.preventDefault();
+
+    if (city.length === 0) {
+      return setError(true);
+    }
+
+    // Clearing the useState to prepare for new data.
+
+    setError(false);
+    setResponseObj({});
+
+    setLoading(true);
+
+    const uriEncodedCity = encodeURIComponent(city);
     fetch(
       `https://community-open-weather-map.p.rapidapi.com/weather?units=${unit}&q=${uriEncodedCity}`,
       {
@@ -39,21 +54,26 @@ const Forecast = () => {
         },
       }
     )
-      .then(response => response.json())
       .then(response => {
-        setResponseObj(response);
-      })
+        if (response.cod !== 200) {
+          throw new Error();
+        }
 
-      .then(response => {
-        console.log(response);
+        setResponseObj(response);
+        setLoading(false);
       })
       .catch(err => {
-        console.log(err);
+        setError(true);
+        setLoading(false);
+        console.log(err.message);
       });
   }
   return (
     <div>
       <center>
+        <h1 style={{ fontFamily: '-moz-initial' }}>
+          Simply <i>Weather</i>
+        </h1>
         <Grid container spacing={3}>
           <Grid className={classes.root} item xs={12}>
             {' '}
@@ -66,53 +86,48 @@ const Forecast = () => {
           </Grid>
           <form className={classes.root} onSubmit={getForecast}>
             <Grid item xs={12}>
-              <Paper
-                className={classes.paper}
-                style={{ backgroundImage: `url(${cityImage})` }}
-              >
-                <TextField
-                  style={{ backgroundColor: 'white', borderRadius: '2px' }}
-                  helperText="Enter a city or location."
-                  id="outlined-basic"
-                  label="Location"
-                  variant="outlined"
-                  color="primary"
-                  maxLength="50"
-                  value={city}
-                  onChange={e => setCity(e.target.value)}
-                />{' '}
-              </Paper>
+              <TextField
+                id="filled-basic"
+                label="Location"
+                variant="filled"
+                color="primary"
+                maxLength="50"
+                value={city}
+                onChange={e => setCity(e.target.value)}
+              />
             </Grid>
-            <label>
-              <Checkbox
-                type="radio"
-                name="units"
-                checked={unit === 'metric'}
-                value="metric"
-                onChange={e => setUnit(e.target.value)}
-              />
-              Celcius
-            </label>
-            <label>
-              <Checkbox
-                type="radio"
-                name="units"
-                checked={unit === 'imperial'}
-                value="imperial"
-                onChange={e => setUnit(e.target.value)}
-              />
-              Fahrenheit
-            </label>
+            <Checkbox
+              size="small"
+              color="primary"
+              name="units"
+              checked={unit === 'metric'}
+              value="metric"
+              onChange={e => setUnit(e.target.value)}
+            />
+            Celsius
+            <Checkbox
+              color="primary"
+              name="units"
+              size="small"
+              checked={unit === 'imperial'}
+              value="imperial"
+              onChange={e => setUnit(e.target.value)}
+            />
+            Fahrenheit
             <div>
               <Button onClick={getForecast} variant="contained" color="primary">
                 Get Forecast
               </Button>
             </div>
+            <br />
           </form>{' '}
         </Grid>
         <Grid>
-          <br />
-          <Conditions responseObj={responseObj} />
+          <Conditions
+            responseObj={responseObj}
+            error={error}
+            loading={loading}
+          />
         </Grid>
         <br />
       </center>

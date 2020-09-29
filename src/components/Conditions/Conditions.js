@@ -23,62 +23,60 @@ const Conditions = props => {
   const classes = useStyle();
   return (
     <div>
+      {props.error && <h3>We have reached our monthly quota of API requests <span aria-labelledby="sadface emoji"role="img">😔</span></h3>}
+      {props.loading && <div></div>}
       {props.responseObj.cod === 200 ? (
         <div>
           {props.responseObj.weather[0].main === 'Clouds' ? (
             <Paper
               className={classes.paper}
-              style={{ backgroundImage: `url(${clouds})`,  fontSize: 'calc(10px + 0.75vw)',  }}
+              style={{
+                backgroundImage: `url(${clouds})`,
+                fontSize: 'calc(10px + 0.75vw)',
+              }}
             >
               <p>
                 <strong>{props.responseObj.name}</strong>
               </p>
-              <p>
-                <h1>{Math.round(props.responseObj.main.temp)}°</h1>
-                with {props.responseObj.weather[0].description}
-              </p>
+
+              <h1>{Math.round(props.responseObj.main.temp)}°</h1>
+              <h2> with {props.responseObj.weather[0].description}</h2>
             </Paper>
           ) : null}
           {props.responseObj.weather[0].main === 'Rain' ? (
             <Paper
               className={classes.paper}
-              style={{ backgroundImage: `url(${rain})`, }}
+              style={{ backgroundImage: `url(${rain})` }}
             >
               <p>
                 <strong>{props.responseObj.name}</strong>
               </p>
-              <p>
-                <h1>{Math.round(props.responseObj.main.temp)}°</h1>
-                <h2>with {props.responseObj.weather[0].description}</h2>
-              </p>
+              <h1>{Math.round(props.responseObj.main.temp)}°</h1>
+              <h2> with {props.responseObj.weather[0].description}</h2>
             </Paper>
           ) : null}
           {props.responseObj.weather[0].main === 'Snow' ? (
             <Paper
               className={classes.paper}
-              style={{ backgroundImage: `url(${snow})`,}}
+              style={{ backgroundImage: `url(${snow})` }}
             >
               <p>
                 <strong>{props.responseObj.name}</strong>
               </p>
-              <p>
-                <h1>{Math.round(props.responseObj.main.temp)}°</h1>
-                <h2>{props.responseObj.weather[0].description}</h2>
-              </p>
+              <h1>{Math.round(props.responseObj.main.temp)}°</h1>
+              <h2> with {props.responseObj.weather[0].description}</h2>
             </Paper>
           ) : null}
           {props.responseObj.weather[0].main === 'Clear' ? (
             <Paper
               className={classes.paper}
-              style={{ backgroundImage: `url(${clear})`, }}
+              style={{ backgroundImage: `url(${clear})` }}
             >
               <p>
                 <strong>{props.responseObj.name}</strong>
               </p>
-              <p>
-                <h1>{Math.round(props.responseObj.main.temp)}°</h1>
-                with {props.responseObj.weather[0].description}
-              </p>
+              <h1>{Math.round(props.responseObj.main.temp)}°</h1>
+              <h2> with {props.responseObj.weather[0].description}</h2>
             </Paper>
           ) : null}
         </div>
