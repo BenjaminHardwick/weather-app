@@ -5,17 +5,17 @@ import Conditions from '../Conditions/Conditions';
 import { Button, TextField, Checkbox, Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    paddingBlock: '26ch',
+    paddingBlock: '1ch',
+
   },
   paper: {
     padding: theme.spacing(),
+
     textAlign: 'center',
     color: theme.palette.text.secondary,
-    width: '50ch',
-    borderRadius: '22px',
   },
 }));
 const Forecast = () => {
@@ -42,6 +42,7 @@ const Forecast = () => {
     setLoading(true);
 
     const uriEncodedCity = encodeURIComponent(city);
+    console.log(city);
     fetch(
       `https://community-open-weather-map.p.rapidapi.com/weather?units=${unit}&q=${uriEncodedCity}`,
       {
@@ -54,15 +55,15 @@ const Forecast = () => {
         },
       }
     )
-      .then(response => {
+      .then((response) => response.json())
+      .then((response) => {
         if (response.cod !== 200) {
           throw new Error();
         }
-
         setResponseObj(response);
         setLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         setError(true);
         setLoading(false);
         console.log(err.message);
@@ -74,7 +75,7 @@ const Forecast = () => {
         <h1 style={{ fontFamily: '-moz-initial' }}>
           Simply <i>Weather</i>
         </h1>
-        <Grid container spacing={3}>
+        <Grid container spacing={1}>
           <Grid className={classes.root} item xs={12}>
             {' '}
             <Paper
@@ -85,37 +86,37 @@ const Forecast = () => {
             </Paper>
           </Grid>
           <form className={classes.root} onSubmit={getForecast}>
-            <Grid item xs={12}>
+            <Grid item xs={6}>
               <TextField
-                id="filled-basic"
-                label="Location"
-                variant="filled"
-                color="primary"
-                maxLength="50"
+                id='filled-basic'
+                label='Location'
+                variant='filled'
+                color='primary'
+                maxLength='50'
                 value={city}
-                onChange={e => setCity(e.target.value)}
+                onChange={(e) => setCity(e.target.value)}
               />
             </Grid>
             <Checkbox
-              size="small"
-              color="primary"
-              name="units"
+              size='small'
+              color='primary'
+              name='units'
               checked={unit === 'metric'}
-              value="metric"
-              onChange={e => setUnit(e.target.value)}
+              value='metric'
+              onChange={(e) => setUnit(e.target.value)}
             />
             Celsius
             <Checkbox
-              color="primary"
-              name="units"
-              size="small"
+              color='primary'
+              name='units'
+              size='small'
               checked={unit === 'imperial'}
-              value="imperial"
-              onChange={e => setUnit(e.target.value)}
+              value='imperial'
+              onChange={(e) => setUnit(e.target.value)}
             />
             Fahrenheit
             <div>
-              <Button onClick={getForecast} variant="contained" color="primary">
+              <Button onClick={getForecast} variant='contained' color='primary'>
                 Get Forecast
               </Button>
             </div>

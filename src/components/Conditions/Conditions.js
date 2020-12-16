@@ -6,7 +6,7 @@ import rain from './images/rain.jpg';
 import snow from './images/snow.jpg';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyle = makeStyles(theme => ({
+const useStyle = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     paddingBlock: '26ch',
@@ -19,70 +19,101 @@ const useStyle = makeStyles(theme => ({
     borderRadius: '22px',
   },
 }));
-const Conditions = props => {
-  const classes = useStyle();
-  return (
-    <div>
-      {props.error && <h3>We have reached our monthly quota of API requests <span aria-labelledby="sadface emoji"role="img">😔</span></h3>}
-      {props.loading && <div></div>}
-      {props.responseObj.cod === 200 ? (
-        <div>
-          {props.responseObj.weather[0].main === 'Clouds' ? (
-            <Paper
-              className={classes.paper}
-              style={{
-                backgroundImage: `url(${clouds})`,
-                fontSize: 'calc(10px + 0.75vw)',
-              }}
-            >
-              <p>
-                <strong>{props.responseObj.name}</strong>
-              </p>
 
-              <h1>{Math.round(props.responseObj.main.temp)}°</h1>
-              <h2> with {props.responseObj.weather[0].description}</h2>
-            </Paper>
-          ) : null}
-          {props.responseObj.weather[0].main === 'Rain' ? (
-            <Paper
-              className={classes.paper}
-              style={{ backgroundImage: `url(${rain})` }}
-            >
-              <p>
-                <strong>{props.responseObj.name}</strong>
-              </p>
-              <h1>{Math.round(props.responseObj.main.temp)}°</h1>
-              <h2> with {props.responseObj.weather[0].description}</h2>
-            </Paper>
-          ) : null}
-          {props.responseObj.weather[0].main === 'Snow' ? (
-            <Paper
-              className={classes.paper}
-              style={{ backgroundImage: `url(${snow})` }}
-            >
-              <p>
-                <strong>{props.responseObj.name}</strong>
-              </p>
-              <h1>{Math.round(props.responseObj.main.temp)}°</h1>
-              <h2> with {props.responseObj.weather[0].description}</h2>
-            </Paper>
-          ) : null}
-          {props.responseObj.weather[0].main === 'Clear' ? (
-            <Paper
-              className={classes.paper}
-              style={{ backgroundImage: `url(${clear})` }}
-            >
-              <p>
-                <strong>{props.responseObj.name}</strong>
-              </p>
-              <h1>{Math.round(props.responseObj.main.temp)}°</h1>
-              <h2> with {props.responseObj.weather[0].description}</h2>
-            </Paper>
-          ) : null}
+const Conditions = (props) => {
+  const classes = useStyle();
+  if (props.responseObj.cod !== 200) {
+    return (
+      <div>
+        <Paper
+          className={classes.paper}
+          style={{
+            backgroundImage: `url(${clouds})`,
+            fontSize: 'calc(10px + 0.75vw)',
+          }}
+        >
+          <p>
+            <strong>Enter a valid Location</strong>
+          </p>
+
+          <h1>It could be a city</h1>
+          <h2>or your home country</h2>
+          <small>or maybe a village</small>
+          <small>or even a hamlet</small>
+        <div></div>
+          <small>maybe a planet?</small>
+
+        </Paper>
+      </div>
+    );
+  } else if (props.responseObj.cod === 200) {
+    if (props.responseObj.weather[0].main === 'Clouds') {
+      return (
+        <div>
+          <Paper
+            className={classes.paper}
+            style={{
+              backgroundImage: `url(${clouds})`,
+              fontSize: 'calc(10px + 0.75vw)',
+            }}
+          >
+            <p>
+              <strong>{props.responseObj.name}</strong>
+            </p>
+
+            <h1>{Math.round(props.responseObj.main.temp)}°</h1>
+            <h2> with {props.responseObj.weather[0].description}</h2>
+          </Paper>
         </div>
-      ) : null}
-    </div>
-  );
+      );
+    } else if (props.responseObj.weather[0].main === 'Rain') {
+      return (
+        <div>
+          <Paper
+            className={classes.paper}
+            style={{ backgroundImage: `url(${rain})` }}
+          >
+            <p>
+              <strong>{props.responseObj.name}</strong>
+            </p>
+            <h1>{Math.round(props.responseObj.main.temp)}°</h1>
+            <h2> with {props.responseObj.weather[0].description}</h2>
+          </Paper>
+        </div>
+      );
+    } else if (props.responseObj.weather[0].main === 'Snow') {
+      return (
+        <div>
+          {' '}
+          <Paper
+            className={classes.paper}
+            style={{ backgroundImage: `url(${snow})` }}
+          >
+            <p>
+              <strong>{props.responseObj.name}</strong>
+            </p>
+            <h1>{Math.round(props.responseObj.main.temp)}°</h1>
+            <h2> with {props.responseObj.weather[0].description}</h2>
+          </Paper>
+        </div>
+      );
+    } else if (props.responseObj.weather[0].main === 'Clear') {
+      return (
+        <div>
+          <Paper
+            className={classes.paper}
+            style={{ backgroundImage: `url(${clear})` }}
+          >
+            <p>
+              <strong>{props.responseObj.name}</strong>
+            </p>
+            <h1>{Math.round(props.responseObj.main.temp)}°</h1>
+            <h2> with {props.responseObj.weather[0].description}</h2>
+          </Paper>
+        </div>
+      );
+    }
+  }
 };
 
 export default Conditions;
