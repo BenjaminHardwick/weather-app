@@ -1,11 +1,11 @@
 .App {
   text-align: center;
-
+  height:100vh;
   display: flex;
   font-size: calc(15px + 0.75vw);
   background-color: #4158D0;
   background-image: linear-gradient(43deg, #4158D0 18%, #C850C0 73%, #FFCC70 100%);
-  
+
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#db906a",endColorstr="#cefbfa",GradientType=1);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#db906a",endColorstr="#cefbfa",GradientType=1);
   flex-direction: column;

@@ -9,7 +9,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     paddingBlock: '1ch',
-
   },
   paper: {
     padding: theme.spacing(),
