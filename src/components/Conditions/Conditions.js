@@ -39,8 +39,7 @@ const Conditions = (props) => {
           <h1>It could be a city</h1>
           <h2>or your home country</h2>
           <small>or maybe a village</small>
-          <small>or even a hamlet</small>
-        <div></div>
+          <small> or even a hamlet </small>
           <small>maybe a planet?</small>
 
         </Paper>
