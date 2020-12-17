@@ -9,14 +9,14 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyle = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    paddingBlock: '26ch',
+    paddingBlock: '26vh',
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
-    width: '100%',
-    height:"100%",
+    width: '40vw',
+    height: '30vh',
     borderRadius: '22px',
   },
 }));
@@ -33,16 +33,14 @@ const Conditions = (props) => {
             fontSize: 'calc(10px + 0.75vw)',
           }}
         >
-          <p>
+          <h1>
             <strong>Enter a valid Location</strong>
-          </p>
+          </h1>
 
-          <h1>It could be a city</h1>
+          <h1>
+            It could be a <b>city</b>
+          </h1>
           <h2>or your home country</h2>
-          <small>or maybe a village</small>
-          <small> or even a hamlet </small>
-          <small>maybe a planet?</small>
-
         </Paper>
       </div>
     );
